@@ -797,6 +797,8 @@ void print_summary(targets_t *targets, enum ls_formats format) {
             fh = fh->next;
         }
 
+        hdr_percentiles_print(target->histogram, stdout, 5, 1000.0, CLASSIC);
+
         target = target->next;
     }
 }
@@ -1102,6 +1104,8 @@ int main(int argc, char **argv) {
                         /* record result for each filehandle */
                         filehandle->results[filehandle->sent - 1] = usec;
                     }
+
+                    hdr_record_value(current->histogram, usec);
 
                     filehandle = filehandle->next;
                 } /* while (filehandle) */
